@@ -1,4 +1,14 @@
 import type { ReactNode } from "react";
+import Image, { type StaticImageData } from "next/image";
+import imgLabware from "@/public/products/labware.webp";
+import imgIvd from "@/public/products/ivd.png";
+import imgColdChain from "@/public/products/cold-chain.png";
+import imgInstrument from "@/public/products/lab-instrument.webp";
+import imgHygienic from "@/public/products/hygienic.png";
+import imgLiverscan from "@/public/products/liverscan.png";
+import imgCareway from "@/public/products/hfcwo-careway.webp";
+import imgVeinVu from "@/public/products/vein-vu-200.webp";
+import imgZCool from "@/public/products/z-cool.png";
 
 const LINE_URL = "https://line.me/R/ti/p/@zestmed";
 const PHONE_URL = "tel:+6626829151";
@@ -136,33 +146,38 @@ const highlights = [
   },
 ];
 
-const products = [
+const products: { icon: ReactNode; img?: StaticImageData; en: string; th: string; text: string }[] = [
   {
     icon: icons.flask,
+    img: imgLabware,
     en: "Innovative Labware",
     th: "อุปกรณ์ห้องปฏิบัติการ",
     text: "อุปกรณ์แล็บสำหรับ Clinical Lab รวมถึงแบรนด์ “Greenlabb” ที่เป็นมิตรต่อสิ่งแวดล้อม",
   },
   {
     icon: icons.dna,
+    img: imgIvd,
     en: "IVD Clinical Diagnostics",
     th: "ชุดตรวจวินิจฉัยโรค",
     text: "ชุดตรวจที่แม่นยำและรวดเร็ว พร้อมใบ COA ทุกล็อต",
   },
   {
     icon: icons.snow,
+    img: imgColdChain,
     en: "Cold Chain Solutions",
     th: "ระบบควบคุมอุณหภูมิ",
     text: "ตู้เย็นเก็บยา วัคซีน และระบบขนส่งควบคุมอุณหภูมิ พร้อมเอกสาร Thermal Validation",
   },
   {
     icon: icons.microscope,
+    img: imgInstrument,
     en: "High-Quality Lab Instruments",
     th: "เครื่องมือแพทย์และแล็บ",
     text: "เครื่องมือทันสมัย นวัตกรรมใหม่ ช่วยเพิ่มความแม่นยำและลดความผิดพลาด",
   },
   {
     icon: icons.shield,
+    img: imgHygienic,
     en: "Specialist Hygienic Products",
     th: "ผลิตภัณฑ์ป้องกันการติดเชื้อ",
     text: "ผลิตภัณฑ์กลุ่มป้องกันการติดเชื้อคุณภาพสูง สำหรับโรงพยาบาลและห้องปฏิบัติการ",
@@ -172,6 +187,33 @@ const products = [
     en: "Certifications & Standards",
     th: "เอกสารรับรองมาตรฐาน",
     text: "ใบรับรองจากหน่วยงานตรวจสอบมาตรฐาน ช่วยให้ผ่านการตรวจประเมินได้อย่างมั่นใจ",
+  },
+];
+
+const featured = [
+  {
+    img: imgLiverscan,
+    name: "Liverscan®",
+    tag: "ตรวจประเมินสุขภาพตับ",
+    text: "ระบบตรวจสุขภาพตับด้วยเทคโนโลยี Transient Elastography แม่นยำระดับโรงพยาบาลในขนาดพกพา",
+  },
+  {
+    img: imgCareway,
+    name: "HFCWO Careway",
+    tag: "เครื่องเคาะปอดความถี่สูง",
+    text: "ช่วยระบายเสมหะด้วยแรงสั่นความถี่สูงที่ผนังทรวงอก ควบคุมผ่านหน้าจอสัมผัสและแอปพลิเคชัน",
+  },
+  {
+    img: imgVeinVu,
+    name: "Vein Vu 200",
+    tag: "เครื่องสแกนเส้นเลือด",
+    text: "แสดงภาพเส้นเลือดแบบ Real-time ด้วย Near-Infrared สำหรับโรงพยาบาลและคลินิก",
+  },
+  {
+    img: imgZCool,
+    name: "ตู้เย็น Z-Cool 2–8 °C",
+    tag: "ตู้เก็บยาและวัคซีน",
+    text: "ตู้ควบคุมอุณหภูมิสำหรับเก็บน้ำยา ยา และวัคซีน ขนาด 1 ประตู ความจุ 390 ลิตร",
   },
 ];
 
@@ -355,12 +397,24 @@ export default function Home() {
               {products.map((p) => (
                 <div
                   key={p.en}
-                  className="group flex flex-col rounded-3xl border border-line bg-white p-7 transition hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-[0_20px_50px_-25px_rgba(31,95,191,0.45)]"
+                  className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-white transition hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-[0_20px_50px_-25px_rgba(31,95,191,0.45)]"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
-                    <Icon>{p.icon}</Icon>
+                  <div className="relative flex h-52 items-center justify-center bg-gradient-to-b from-sky-50 to-sky-100/60">
+                    {p.img ? (
+                      <Image
+                        src={p.img}
+                        alt={p.th}
+                        sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
+                        className="h-44 w-auto object-contain mix-blend-multiply transition duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-24 w-24 items-center justify-center rounded-full bg-navy-900 text-gold">
+                        <Icon className="h-11 w-11">{p.icon}</Icon>
+                      </div>
+                    )}
                   </div>
-                  <p className="mt-6 text-xs font-medium tracking-wider text-blue-600 uppercase">{p.en}</p>
+                  <div className="flex flex-1 flex-col p-7 pt-6">
+                  <p className="text-xs font-medium tracking-wider text-blue-600 uppercase">{p.en}</p>
                   <h3 className="mt-1 text-h3 font-semibold text-navy-900">{p.th}</h3>
                   <p className="mt-3 flex-1 text-body text-muted">{p.text}</p>
                   <a
@@ -372,8 +426,47 @@ export default function Home() {
                     สอบถามราคา
                     <Icon className="h-4 w-4">{icons.arrow}</Icon>
                   </a>
+                  </div>
                 </div>
               ))}
+            </div>
+
+            {/* สินค้าแนะนำ */}
+            <div className="mt-20 md:mt-28">
+              <SectionHead
+                eyebrow="Featured"
+                title="สินค้าแนะนำ"
+                text="นวัตกรรมทางการแพทย์ที่โรงพยาบาลและคลินิกเลือกใช้"
+              />
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+                {featured.map((f) => (
+                  <a
+                    key={f.name}
+                    href={LINE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col overflow-hidden rounded-3xl bg-navy-950 text-white transition hover:-translate-y-1 hover:shadow-[0_24px_60px_-28px_rgba(10,31,61,0.8)]"
+                  >
+                    <div className="relative flex aspect-[4/5] items-end justify-center bg-gradient-to-b from-navy-800 to-navy-950 px-4 pt-4">
+                      <Image
+                        src={f.img}
+                        alt={f.name}
+                        sizes="(min-width: 1024px) 280px, 50vw"
+                        className="h-full w-auto object-contain transition duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-4 sm:p-6">
+                      <p className="text-xs font-medium text-gold">{f.tag}</p>
+                      <h3 className="mt-1 text-base font-semibold sm:text-h3">{f.name}</h3>
+                      <p className="mt-2 line-clamp-3 flex-1 text-xs leading-relaxed text-sky-100/70 sm:line-clamp-none sm:text-sm">{f.text}</p>
+                      <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-300 group-hover:text-white">
+                        สอบถามเลย
+                        <Icon className="h-4 w-4">{icons.arrow}</Icon>
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </section>
