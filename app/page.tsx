@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Mascot from "./Mascot";
+import Mascots from "./Mascots";
 import Image, { type StaticImageData } from "next/image";
 import imgLabware from "@/public/products/labware.webp";
 import imgIvd from "@/public/products/ivd.png";
@@ -618,8 +618,8 @@ export default function Home() {
         </p>
       </footer>
 
-      {/* ---------- มาสคอต (ตัวเดียวทั้งเว็บ) ---------- */}
-      <Mascot />
+      {/* ---------- มาสคอต 3 ตัว ---------- */}
+      <Mascots />
 
       {/* ---------- ปุ่มไลน์ลอย (มือถือ) ---------- */}
       <div className="fixed inset-x-4 bottom-4 z-50 md:hidden">

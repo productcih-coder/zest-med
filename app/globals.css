@@ -64,100 +64,146 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 
-/* ---------- มาสคอตวิ่งเล่น ---------- */
-.mascot-track {
+/* ---------- มาสคอต 3 ตัว เดินทั่วจอ ---------- */
+.mascot {
+  --step: 0.55s;
+  --swing: 16deg;
   position: fixed;
   left: 0;
-  right: 0;
-  bottom: 84px;
+  top: 0;
   z-index: 45;
-  pointer-events: none;
+  will-change: transform;
 }
-@media (min-width: 768px) {
-  .mascot-track {
-    bottom: 6px;
-  }
+.mascot[data-pose="run"] {
+  --step: 0.32s;
+  --swing: 26deg;
 }
-.mascot-runner {
-  position: relative;
-  width: max-content;
-  pointer-events: auto;
-  animation: mascot-run 26s linear infinite;
+.mascot[data-pose="carry"] {
+  --step: 0.7s;
+  --swing: 12deg;
 }
 .mascot-facer {
-  animation: mascot-face 26s linear infinite;
+  transition: transform 0.25s;
 }
-.mascot-bob {
-  animation: mascot-bob 0.36s ease-in-out infinite alternate;
+.mascot[data-face="left"] .mascot-facer {
+  transform: scaleX(-1);
 }
+
+.mascot-bob,
 .mascot-leg-l,
 .mascot-leg-r,
 .mascot-arm-l,
 .mascot-arm-r,
 .mascot-tail,
-.mascot-eyes {
+.mascot-eyes,
+.mascot-sweat {
   transform-box: view-box;
+}
+.mascot-bob {
+  transform-origin: 50px 130px;
+  animation: mascot-bob calc(var(--step) / 2) ease-in-out infinite alternate;
 }
 .mascot-leg-l {
   transform-origin: 44px 103px;
-  animation: mascot-swing 0.36s ease-in-out infinite alternate;
+  animation: mascot-swing var(--step) ease-in-out infinite alternate;
 }
 .mascot-leg-r {
   transform-origin: 56px 103px;
-  animation: mascot-swing 0.36s ease-in-out infinite alternate-reverse;
+  animation: mascot-swing var(--step) ease-in-out infinite alternate-reverse;
 }
 .mascot-arm-l {
   transform-origin: 33px 71px;
-  animation: mascot-swing 0.36s ease-in-out infinite alternate-reverse;
+  animation: mascot-swing var(--step) ease-in-out infinite alternate-reverse;
 }
 .mascot-arm-r {
   transform-origin: 67px 71px;
-  animation: mascot-swing 0.36s ease-in-out infinite alternate;
+  animation: mascot-swing var(--step) ease-in-out infinite alternate;
 }
 .mascot-tail {
   transform-origin: 66px 16px;
-  animation: mascot-tail 0.36s ease-in-out infinite alternate;
+  animation: mascot-tail var(--step) ease-in-out infinite alternate;
 }
 .mascot-eyes {
   transform-origin: 50px 43.5px;
   animation: mascot-blink 4s infinite;
 }
-
-/* กดแล้ว: หยุดวิ่ง ยืนโบกมือ */
-.mascot-track.is-hello .mascot-runner,
-.mascot-track.is-hello .mascot-facer {
-  animation-play-state: paused;
+.mascot-sweat {
+  transform-origin: 22px 30px;
+  animation: mascot-sweat 1.2s ease-in infinite;
 }
-.mascot-track.is-hello .mascot-bob,
-.mascot-track.is-hello .mascot-leg-l,
-.mascot-track.is-hello .mascot-leg-r,
-.mascot-track.is-hello .mascot-arm-l,
-.mascot-track.is-hello .mascot-tail {
+
+/* หยุดยืน */
+.mascot[data-moving="false"] .mascot-bob,
+.mascot[data-moving="false"] .mascot-leg-l,
+.mascot[data-moving="false"] .mascot-leg-r,
+.mascot[data-moving="false"] .mascot-arm-l,
+.mascot[data-moving="false"] .mascot-arm-r,
+.mascot[data-moving="false"] .mascot-tail {
   animation: none;
 }
-.mascot-track.is-hello .mascot-arm-r {
-  animation: mascot-wave 0.5s ease-in-out infinite alternate;
+
+/* ตัวที่ 2: มือขวายกค้ำตู้เย็นไว้ */
+.mascot[data-pose="carry"] .mascot-arm-r {
+  animation: none;
+  transform: rotate(-150deg);
 }
 
-@keyframes mascot-run {
-  0% { transform: translateX(8px); }
-  48% { transform: translateX(calc(100vw - 96px)); }
-  50% { transform: translateX(calc(100vw - 96px)); }
-  98% { transform: translateX(8px); }
-  100% { transform: translateX(8px); }
+/* กดแล้วโบกมือทักทาย */
+.mascot.is-hello .mascot-arm-r {
+  animation: mascot-wave 0.5s ease-in-out infinite alternate;
 }
-@keyframes mascot-face {
-  0%, 49% { transform: scaleX(1); }
-  49.01%, 99% { transform: scaleX(-1); }
-  99.01%, 100% { transform: scaleX(1); }
+.mascot.is-hello[data-pose="carry"] .mascot-arm-r {
+  animation: none;
 }
+.mascot.is-hello[data-pose="carry"] .mascot-arm-l {
+  animation: mascot-wave-l 0.5s ease-in-out infinite alternate;
+}
+
+/* ตัวที่ 3: เต้น */
+.mascot[data-pose="dance"] .mascot-bob {
+  animation: mascot-dance 0.45s ease-in-out infinite alternate;
+}
+.mascot[data-pose="dance"] .mascot-arm-l {
+  animation: mascot-wave-l 0.45s ease-in-out infinite alternate;
+}
+.mascot[data-pose="dance"] .mascot-arm-r {
+  animation: mascot-wave 0.45s ease-in-out infinite alternate-reverse;
+}
+.mascot[data-pose="dance"] .mascot-leg-l {
+  animation: mascot-kick 0.45s ease-in-out infinite alternate;
+}
+.mascot[data-pose="dance"] .mascot-leg-r {
+  animation: mascot-kick 0.45s ease-in-out infinite alternate-reverse;
+}
+.mascot[data-pose="dance"] .mascot-tail {
+  animation: mascot-tail 0.22s ease-in-out infinite alternate;
+}
+
+/* หิมะตู้เย็นจิ๋ว */
+.fridge-snow {
+  position: fixed;
+  inset: 0;
+  z-index: 44;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fridge-flake {
+  position: absolute;
+  top: -70px;
+  opacity: 0.95;
+  filter: drop-shadow(0 2px 3px rgba(6, 20, 40, 0.25));
+  animation-name: fridge-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
 @keyframes mascot-bob {
   from { transform: translateY(0); }
   to { transform: translateY(-4px); }
 }
 @keyframes mascot-swing {
-  from { transform: rotate(-22deg); }
-  to { transform: rotate(22deg); }
+  from { transform: rotate(calc(var(--swing) * -1)); }
+  to { transform: rotate(var(--swing)); }
 }
 @keyframes mascot-tail {
   from { transform: rotate(-8deg); }
@@ -167,21 +213,36 @@ details > summary::-webkit-details-marker {
   0%, 92%, 100% { transform: scaleY(1); }
   95% { transform: scaleY(0.1); }
 }
+@keyframes mascot-sweat {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(10px); opacity: 0; }
+}
 @keyframes mascot-wave {
   from { transform: rotate(-150deg); }
-  to { transform: rotate(-120deg); }
+  to { transform: rotate(-115deg); }
+}
+@keyframes mascot-wave-l {
+  from { transform: rotate(150deg); }
+  to { transform: rotate(115deg); }
+}
+@keyframes mascot-dance {
+  0% { transform: rotate(-10deg) translateY(0); }
+  50% { transform: rotate(0deg) translateY(-9px); }
+  100% { transform: rotate(10deg) translateY(0); }
+}
+@keyframes mascot-kick {
+  from { transform: rotate(-30deg); }
+  to { transform: rotate(8deg); }
+}
+@keyframes fridge-fall {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to { transform: translate(var(--drift), calc(100vh + 140px)) rotate(var(--spin)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mascot-runner,
-  .mascot-facer,
-  .mascot-bob,
-  .mascot-leg-l,
-  .mascot-leg-r,
-  .mascot-arm-l,
-  .mascot-arm-r,
-  .mascot-tail,
-  .mascot-eyes {
+  .mascot *,
+  .fridge-snow {
     animation: none !important;
   }
 }
