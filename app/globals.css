@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* สีและขนาดตัวอักษรของทั้งเว็บ — แก้ที่นี่ที่เดียว */
+:root {
+  --navy-950: #061428;
+  --navy-900: #0a1f3d;
+  --navy-800: #11305c;
+  --blue-600: #1f5fbf;
+  --blue-500: #2f7de1;
+  --sky-300: #8cc4f5;
+  --sky-100: #e6f1fc;
+  --sky-50: #f4f9fe;
+  --gold: #c9a961;
+  --ink: #0f1d33;
+  --muted: #5b6b82;
+  --line: #dbe5f1;
+  --white: #ffffff;
+}
+
+@theme inline {
+  --color-navy-950: var(--navy-950);
+  --color-navy-900: var(--navy-900);
+  --color-navy-800: var(--navy-800);
+  --color-blue-600: var(--blue-600);
+  --color-blue-500: var(--blue-500);
+  --color-sky-300: var(--sky-300);
+  --color-sky-100: var(--sky-100);
+  --color-sky-50: var(--sky-50);
+  --color-gold: var(--gold);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+
+  --font-sans: var(--font-thai);
+
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--letter-spacing: 0.18em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.75;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.75;
+  --text-h3: 1.1875rem;
+  --text-h3--line-height: 1.5;
+  --text-h2: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
+  --text-h2--line-height: 1.35;
+  --text-h1: clamp(2.25rem, 1.4rem + 4vw, 4rem);
+  --text-h1--line-height: 1.2;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-thai), system-ui, sans-serif;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
